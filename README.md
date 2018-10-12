@@ -1,4 +1,4 @@
-# pawanindustries.tech
+# TnP-Portal-YMCA
 > A portal for Training and Placement Department of YMCA University of Science & Technology, Faridabad
 
 ### Technology Stack
