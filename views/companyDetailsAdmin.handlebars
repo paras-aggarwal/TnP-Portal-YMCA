@@ -1,0 +1,59 @@
+
+<div class="conteudo-box">
+    <div class="conteudo-boxInner">
+      <div class="">
+        <span style="font-size:1.5em;font-weight:bold;">Event Name : </span>
+        <span style="font-size:1.5em;">{{result.name}}</span>
+      </div>
+      <div class="">
+        <span style="font-size:1.5em;font-weight:bold;">Position : </span>
+        <span style="font-size:1.5em;">{{result.position}}</span>
+      </div>
+      <div class="">
+        <span style="font-size:1.5em;font-weight:bold;">percent_10: </span>
+        <span style="font-size:1.5em;">{{result.criteria.percent_10}}</span>
+      </div>
+      <div class="">
+        <span style="font-size:1.5em;font-weight:bold;">percent_12 : </span>
+        <span style="font-size:1.5em;">{{result.criteria.percent_10}}</span>
+      </div>
+      <div class="">
+        <span style="font-size:1.5em;font-weight:bold;">cpi : </span>
+        <span style="font-size:1.5em;">{{result.criteria.cpi}}</span>
+      </div>
+      <div class="">
+        <span style="font-size:1.5em;font-weight:bold;">backlogs : </span>
+        <span style="font-size:1.5em;">{{result.criteria.backlogs}}</span>
+      </div>
+      <div class="">
+        <span style="font-size:1.5em;font-weight:bold;">branch : </span>
+        <span style="font-size:1.5em;">{{result.criteria.branch}}</span>
+      </div>
+      <div class="">
+        <span style="font-size:1.5em;font-weight:bold;">schedule : </span>
+        <span style="font-size:1.5em;">{{result.schedule}}</span>
+      </div>
+      <div class="">
+        <span style="font-size:1.5em;font-weight:bold;">additional_details : </span>
+        <span style="font-size:1.5em;">{{result.additional_details}}</span>
+      </div>
+      <div class="" >
+        <form class="" action="/users/createEvent" method="post">
+           <input type="hidden" name="id" value={{companyid}}>
+          <button style="margin:5px;" type="submit" class="btn btn-primary btn-lg pull-right"><i class="fa fa-note"></i>Edit</button>
+        </form>
+      </div>
+      <div class="">
+        <form class="" action="/users/showeligible" method="post">
+           <input type="hidden" name="id" value="{{companyid}}">
+          <button style="margin:5px;" type="submit" class="btn btn-primary btn-lg pull-right"><i class="fa fa-note"></i>Eligible Students</button>
+        </form>
+      </div>
+      <div class="">
+        <form class="" action="/users/showregistered" method="post">
+           <input type="hidden" name="id" value={{companyid}}> 
+          <button type="submit" class="btn btn-primary btn-lg pull-right"><i class="fa fa-note"></i>Registered Students</button>
+        </form>
+      </div>
+    </div>
+</div>

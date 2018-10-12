@@ -1,0 +1,168 @@
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+        <form id="msform" action="/users/submit_event" method="post" encType="multipart/form-data">
+              <!-- fieldsets -->
+
+              <fieldset>
+                  <h2 class="fs-title">Event Details</h2>
+
+                  <label for="">Company Name</label>
+                    <input type="text" value="{{result.name}}" name="cName" placeholder="Company Name"/>
+
+                  <label for="">Position</label>
+                    <textarea type="text" name="position" value="{{result.position}}" placeholder="Position"></textarea>
+
+                  <label for="">Position Details</label>
+                  <textarea type="text" name="positiondetails" value="{{result.position_details}}" placeholder="Details"></textarea>
+
+                  <label for="">Type</label>
+                    <select name="type" value="{{result.type}}">
+                      <option value="fte">Full Time</option>
+                      <option value="sli">Intern</option>
+                      <option value="ftesli">Full Time + Intern</option>
+                    </select>
+                  <div class="branch-selector">
+                    <label>Branches</label>
+                      <input type="checkbox" name="branch" value="CE" style="width:20px"> CE &nbsp; &nbsp;
+                      <input type="checkbox" name="branch" value="IT" style="width:20px"> IT &nbsp; &nbsp;
+                      <input type="checkbox" name="branch" value="ECE" style="width:20px">ECE &nbsp; &nbsp;
+                      <input type="checkbox" name="branch" value="ME" style="width:20px">ME &nbsp; &nbsp;
+                      <input type="checkbox" name="branch" value="EIC" style="width:20px">EIC &nbsp; &nbsp;
+                      <input type="checkbox" name="branch" value="EIC" style="width:20px">EL
+                  </div>
+                  </br></br>
+
+                  <div class="col-md-6" style="padding-left: 0;">
+                     <label for="">10th Percentage</label>
+                    <input type="text" name="percent_10"  value="{{result.criteria.percent_10}}" placeholder="10th Percent"/>
+                  </div>
+
+                  <div class="col-md-6" style="padding-right: 0;">
+                    <label for="">12th Percentage</label>
+                    <input type="text" name="percent_12" value="{{result.criteria.percent_10}}" placeholder="12th Percent"/>
+                  </div>
+
+                  <div class="col-md-6" style="padding-right: 0;">
+                    <label for="">Diploma Percentage</label>
+                    <input type="text" name="percent_diploma" value="{{result.criteria.percent_diploma}}" placeholder="Diploma Percent"/>
+                  </div>
+
+                  <div class="col-md-6" style="padding-left: 0;">
+                     <label for="">CGPA</label>
+                    <input type="text" name="cpi" value="{{result.criteria.cpi}}" placeholder="CGPA"/>
+                  </div>
+
+                  <div class="col-md-6" style="padding-right: 0;">
+                     <label for="">Active Backlogs</label>
+                    <input type="number" name="backlogs" value="{{result.criteria.backlogs}}" placeholder="Number of backlogs"/>
+                  </div>
+
+                  <label for="">Schedule</label>
+                  <textarea type="text" name="schedule" value="{{result.schedule}}" placeholder="Schedule"></textarea>
+
+                  <input type="button" name="next" class="next action-button" value="Next"/>
+              </fieldset>
+
+              <fieldset>
+                  <h2 class="fs-title">Registration Details</h2>
+                  <label for="">Start Time</label>
+                    <input type="time" name="startTime" placeholder="Start Time"/>
+                  <label for="">Start Date</label>
+                    <input type="date" name="startDate" placeholder="Start Date"/>
+                  <label for="">End Time</label>
+                    <input type="time" name="endTime" placeholder="End Time"/>
+                  <label for="">End Date</label>
+                    <input type="date" name="endDate" placeholder="End Date"/>
+                  <label for="">Additional Details</label>
+                  <textarea name="additionaldetails"  value="{{result.additional_details}}" placeholder="Additional Details"></textarea>
+                  <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                  <input type="submit" class="submit action-button" value="Submit"/>
+              </fieldset>
+          </form>
+  </div>
+</div>
+<script>
+
+//jQuery time
+var current_fs, next_fs, previous_fs; //fieldsets
+var left, opacity, scale; //fieldset properties which we will animate
+var animating; //flag to prevent quick multi-click glitches
+
+$(".next").click(function(){
+if(animating) return false;
+animating = true;
+
+current_fs = $(this).parent();
+next_fs = $(this).parent().next();
+
+//activate next step on progressbar using the index of next_fs
+$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+//show the next fieldset
+next_fs.show();
+//hide the current fieldset with style
+current_fs.animate({opacity: 0}, {
+  step: function(now, mx) {
+    //as the opacity of current_fs reduces to 0 - stored in "now"
+    //1. scale current_fs down to 80%
+    scale = 1 - (1 - now) * 0.2;
+    //2. bring next_fs from the right(50%)
+    left = (now * 50)+"%";
+    //3. increase opacity of next_fs to 1 as it moves in
+    opacity = 1 - now;
+    current_fs.css({
+      'transform': 'scale('+scale+')',
+      'position': 'absolute'
+    });
+    next_fs.css({'left': left, 'opacity': opacity});
+  },
+  duration: 800,
+  complete: function(){
+    current_fs.hide();
+    animating = false;
+  },
+  //this comes from the custom easing plugin
+  easing: 'easeInOutBack'
+});
+});
+
+$(".previous").click(function(){
+if(animating) return false;
+animating = true;
+
+current_fs = $(this).parent();
+previous_fs = $(this).parent().prev();
+
+//de-activate current step on progressbar
+$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+
+//show the previous fieldset
+previous_fs.show();
+//hide the current fieldset with style
+current_fs.animate({opacity: 0}, {
+  step: function(now, mx) {
+    //as the opacity of current_fs reduces to 0 - stored in "now"
+    //1. scale previous_fs from 80% to 100%
+    scale = 0.8 + (1 - now) * 0.2;
+    //2. take current_fs to the right(50%) - from 0%
+    left = ((1-now) * 50)+"%";
+    //3. increase opacity of previous_fs to 1 as it moves in
+    opacity = 1 - now;
+    current_fs.css({'left': left});
+    previous_fs.css({'transform': 'scale('+scale+')', 'opacity': opacity});
+  },
+  duration: 800,
+  complete: function(){
+    current_fs.hide();
+    animating = false;
+  },
+  //this comes from the custom easing plugin
+  easing: 'easeInOutBack'
+});
+});
+
+$(".submit").click(function(){
+return true;
+}
+)
+</script>

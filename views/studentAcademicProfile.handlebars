@@ -1,0 +1,88 @@
+<div class="conteudo-box">
+    <div class="conteudo-boxInner">
+
+      <form class="form" method="post" action="/users/submit_academic">
+        <h2>Academic Profile</h2>
+
+        <div class="form-group">
+          <label for="rollno">Branch:</label>
+          <div class="relative">
+            <select name="branch" class="form-control" type="text" >
+              <option value="IT" {{#compare user.branch '==' "IT"}} selected = "selected" {{else}} {{/compare}}>IT</option>
+              <option value="CE" {{#compare user.branch '==' "CE"}} selected = "selected" {{else}} {{/compare}}>CE</option>
+              <option value="ECE" {{#compare user.branch '==' "ECE"}} selected = "selected" {{else}} {{/compare}}>ECE</option>
+              <option value="EIC" {{#compare user.branch '==' "EIC"}} selected = "selected" {{else}} {{/compare}}>EIC</option>
+              <option value="ME"  {{#compare user.branch '==' "ME"}} selected = "selected" {{else}} {{/compare}}>ME</option>
+              <option value="EL" {{#compare user.branch '==' "EL"}} selected = "selected" {{else}} {{/compare}}>EL</option>
+            </select>
+            <i class="fa fa-graduation-cap"></i>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Class 10<sup>th</sup>:</label>
+          <div class="relative">
+            <input name="percent_10_value" value='{{user.percent_10_value}}' class="form-control" id="name" type="text" pattern="[0-9][0-9]+.[0-9]" autocomplete="" placeholder="Type Your % here" title="percentage should contain 2 digits before and 1 digit after decimal">
+            <i class="fa fa-user"></i>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Class 12<sup>th</sup>:</label>
+          <div class="relative">
+            <input name="percent_12_value" value='{{user.percent_12_value}}' class="form-control" id="name" type="text" pattern="[0-9][0-9]+.[0-9]" autocomplete="" placeholder="Type Your % here" title="percentage should contain 2 digits before and 1 digit after decimal">
+            <i class="fa fa-user"></i>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Diploma:</label>
+          <div class="relative">
+            <input name="percent_diploma_value" value='{{user.percent_diploma_value}}' class="form-control" id="name" type="text" pattern="[0-9][0-9]+.[0-9][0-9]"  autocomplete="" placeholder="Type Your % here" title="percentage should be contain 2 digits before and after decimal">
+            <i class="fa fa-user"></i>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="GPA">Semester Wise GPA : </label>
+          <div class="semWise">
+              <div class="relative">
+                <span>Sem 1 :</span>
+                  <input name="spi_1" value='{{user.spi.spi_1}}' class="form-control" id="name" type="text" autocomplete="" placeholder="Type Your GPA here">
+                <span>Sem 2 :</span>
+                  <input name="spi_2" value='{{user.spi.spi_2}}' class="form-control" id="name" type="text" autocomplete="" placeholder="Type Your GPA here">
+                <span>Sem 3 :</span>
+                  <input name="spi_3" value='{{user.spi.spi_3}}' class="form-control" id="name" type="text" autocomplete="" placeholder="Type Your GPA here">
+                <span>Sem 4 :</span>
+                  <input name="spi_4" value='{{user.spi.spi_4}}' class="form-control" id="name" type="text" autocomplete="" placeholder="Type Your GPA here">
+                <span>Sem 5 :</span>
+                  <input name="spi_5" value='{{user.spi.spi_5}}' class="form-control" id="name" type="text" autocomplete="" placeholder="Type Your GPA here">
+                <span>Sem 6 :</span>
+                  <input name="spi_6" value='{{user.spi.spi_6}}' class="form-control" id="name" type="text" autocomplete="" placeholder="Type Your GPA here">
+                <span>Sem 7 :</span>
+                  <input name="spi_7" value='{{user.spi.spi_7}}' class="form-control" id="name" type="text" autocomplete="" placeholder="Type Your GPA here">
+                <span>Sem 8 :</span>
+                  <input name="spi_8" value='{{user.spi.spi_8}}' class="form-control" id="name" type="text" autocomplete="" placeholder="Type Your GPA here">
+              </div>
+            </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Current CGPA : </label>
+          <div class="relative">
+            <input name="cpi" class="form-control" id="name" value='{{user.cpi}}' type="text" autocomplete="" placeholder="Type Your CGPA here">
+            <i class="fa fa-user"></i>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Number of backlogs (if any)</label>
+          <div class="relative">
+            <input name="backlogs" class="form-control" id="name"  value='{{user.backlogs}}' type="text"  autocomplete="" placeholder="Type Your Current number of backlogs">
+            <i class="fa fa-user"></i>
+          </div>
+        </div>
+
+        <div class="tright">
+          <a href=""><button class="movebtn movebtnre" type="Reset"><i class="fa fa-fw fa-refresh"></i> Reset </button></a>
+          <button class="movebtn movebtnsu" type="Submit">Update <i class="fa fa-fw fa-paper-plane"></i></button>
+        </div>
+      </form>
+
+    </div>
+</div>

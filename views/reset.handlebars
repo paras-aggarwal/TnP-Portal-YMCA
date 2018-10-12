@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Signup/Signin</title>
+
+
+
+      <link rel="stylesheet" href="/css/login_signup.css">
+      <link rel="icon" href="/images/favicon.png" type="image/png" sizes="16x16">
+
+</head>
+
+<body>
+  <div class="login-signup l-attop" id="login">
+  <div class="login-signup-title">
+    LOG IN
+  </div>
+  <div class="login-signup-content">
+
+    <form role="form" action="/reset/{{token}}" method="post">
+
+      <div class="input-name">
+        <h2>password</h2>
+      </div>
+      <input type="password" name="password" class="field-input" required/>
+			<div class="input-name">
+        <h2>Confirm Password</h2>
+      </div>
+      <input type="password" name="ConfirmPassword" class="field-input" required/>
+
+      <button class="submit-btn">
+            Reset Password
+      </button>
+    </form>
+
+  </div>
+</div>
+    <script  src="/js/login_signup.js"></script>
+
+</body>
+</html>

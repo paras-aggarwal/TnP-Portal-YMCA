@@ -1,0 +1,49 @@
+<div class="conteudo-box">
+    <div class="conteudo-boxInner">
+  <table id="example" class="display" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+              <th>Company</th>
+              <th>Job Position</th>
+              <th>Internship Position</th>
+              <th>Schedule</th>
+              <th>Offer Type</th>
+              <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+          {{#each result}}
+            <tr>
+                <td>
+                  {{this.name}}
+                </td>
+                <td>
+                  {{this.position}}
+                </td>
+                <td>
+                  {{this.schedule}}
+                </td>
+                <td>
+                  {{this.schedule}}
+                </td>
+                <td>
+                  {{this.type}}
+                </td>
+                 <td>
+                   <form class="" action="/users/companyDetail1" method="post">
+                     <input type="hidden" name="compId" value="{{this.id}}">
+                     <button type="submit" class="btn btn-primary btm-sm">view</button>
+                   </form>
+                 </td>
+            </tr>
+              {{/each}}
+        </tbody>
+    </table>
+  </div>
+</div>
+<script>
+/* Custom filtering function which will search data in column four between two values */
+$(document).ready(function(){
+    $('#example').DataTable();
+});
+</script>

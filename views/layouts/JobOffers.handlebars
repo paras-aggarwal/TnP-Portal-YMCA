@@ -1,0 +1,58 @@
+<div class="conteudo-box">
+    <div class="conteudo-boxInner">
+  <table id="example" class="display" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Roll No</th>
+                <th>Name</th>
+                <th>Course</th>
+                <th>Back Papers</th>
+                <th>Company</th>
+                <th>Package</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+              <th>Roll No</th>
+              <th>Name</th>
+              <th>Course</th>
+              <th>Back Papers</th>
+              <th>Company</th>
+              <th>Package</th>
+              <th>Actions</th>
+            </tr>
+        </tfoot>
+        <tbody>
+            <tr>
+                <td>Elite Category</td>
+                <td>1200000</td>
+                <td>5000000</td>
+                <td>1</td>
+                <td><button class="btn btn-primary">View</button>&nbsp;&nbsp;<button class="btn btn-danger">Delete</button></td>
+            </tr>
+            <tr>
+              <td>Dream Category </td>
+              <td>550000</td>
+              <td>1199999 </td>
+              <td>1</td>
+              <td><button class="btn btn-primary">View</button>&nbsp;&nbsp;<button class="btn btn-danger">Delete</button></td>
+            </tr>
+            <tr>
+              <td>Regular Category </td>
+              <td>350000 </td>
+              <td>549999</td>
+              <td>1</td>
+              <td><button class="btn btn-primary">View</button>&nbsp;&nbsp;<button class="btn btn-danger">Delete</button></td>
+            </tr>
+
+        </tbody>
+    </table>
+  </div>
+</div>
+<script>
+/* Custom filtering function which will search data in column four between two values */
+$(document).ready(function(){
+    $('#example').DataTable();
+});
+</script>

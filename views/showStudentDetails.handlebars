@@ -1,0 +1,76 @@
+<style>
+  td {
+    padding-right: 10px;
+  }
+</style>
+<div class="conteudo-box">
+    <div class="conteudo-boxInner">
+      <table id="example" class="display" width="100%" cellspacing="0">
+        <tr>
+          <div class="">
+            <td><span style="font-size:1.5em;font-weight:bold;">Name : </span>
+            <td><span style="font-size:1.5em;">{{result.name}}</span>
+          </div>
+        </tr>
+        <tr>
+          <div class="">
+            <td><span style="font-size:1.5em;font-weight:bold;">Roll Number : </span>
+            <td><span style="font-size:1.5em;">{{result.rollno}}</span>
+          </div>
+        </tr>
+        <tr>
+          <div class="">
+            <td><span style="font-size:1.5em;font-weight:bold;">10th Percentage: </span>
+            <td><span style="font-size:1.5em;">{{result.percent_10_value}}</span>
+          </div>
+        </tr>
+        <tr>
+          <div class="">
+            <td><span style="font-size:1.5em;font-weight:bold;">12th Percentage: </span>
+            <td></td><span style="font-size:1.5em;">{{result.percent_12_value}}</span>
+          </div>
+        </tr>
+        <tr>
+          <div class="">
+            <td><span style="font-size:1.5em;font-weight:bold;">Diploma Percentage: </span>
+            <td><span style="font-size:1.5em;">{{result.percent_diploma_value}}</span>
+          </div>
+        </tr>
+        <tr>
+          <div class="">
+            <td><span style="font-size:1.5em;font-weight:bold;">CGPA: </span>
+            <td><span style="font-size:1.5em;">{{result.cpi}}</span>
+          </div>
+        </tr>
+        <tr>
+          <div class="">
+            <td><span style="font-size:1.5em;font-weight:bold;">Backlogs: </span>
+            <td><span style="font-size:1.5em;">{{result.backlogs}}</span>
+          </div>
+        </tr>
+        <tr>
+          <div class="">
+            <td><span style="font-size:1.5em;font-weight:bold;">Branch: </span>
+            <td><span style="font-size:1.5em;">{{result.branch}}</span>
+          </div>
+        </tr>
+        <tr>
+          <div class="">
+            <td><span style="font-size:1.5em;font-weight:bold;">Phone Number: </span>
+            <td><span style="font-size:1.5em;">{{result.phone_no.phone_no1}}</span>
+          </div>
+        </tr>
+        <tr>
+          <div class="">
+            <td><span style="font-size:1.5em;font-weight:bold;">Skills: </span>
+            <td><span style="font-size:1.5em;">{{result.skills}}</span>
+          </div>
+        </tr>
+      </table>
+    </div>
+</div>
+<script>
+$(document).ready(function(){
+    $('#example').DataTable();
+});
+</script>

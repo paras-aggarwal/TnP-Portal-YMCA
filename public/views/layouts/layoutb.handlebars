@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>TPC LNMIIT</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+      <link rel="icon" href="/images/favicon.png" type="image/png" sizes="16x16">
+
+      <link rel="stylesheet" href="/css/dashboard.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+</head>
+
+<body>
+  <div id="hit-menu" class="col-xs-hide col-sm-hide"></div>
+    <div class="menu-mobile-background "></div>
+    <div id="header">
+        <div class="header-inner">
+            <div class="header-topo header-topo-back">
+                <button class="button-menu-mobile ">
+                    <div class="box-stripes">
+                        <span class="stripe-top"></span>
+                        <span class="stripe-middle"></span>
+                        <span class="stripe-bottom"></span>
+                    </div>
+                </button>
+                <span class="header-nomeEmpresa header-nomeEmpresa_mobile col-xs-show col-sm-show">Dashboard</span>
+                <a href="#" class="brand-icon">Training And Placement Cell, LNMIIT</a>
+                <div id="dropdown" class="ddmenu">
+                    <i class="fa fa-user">&nbsp;&nbsp;</i>User Settings
+                    <ul>
+                      <li><a href="#">My Profile</a></li>
+                      <li><a href="#">Change Passwords</a></li>
+                      <li><a href="#">Support</a></li>
+                      <li><a href="#">About Us</a></li>
+                      <li><a href="#">Log Out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+      $("#dropdown").on("click", function(e){
+        e.preventDefault();
+
+        if($(this).hasClass("open")) {
+          $(this).removeClass("open");
+          $(this).children("ul").slideUp("fast");
+        } else {
+          $(this).addClass("open");
+          $(this).children("ul").slideDown("fast");
+        }
+      });
+    </script>
+    <div id="menu" class="">
+        <div class="menu-header">
+            <div class="header-topo">
+                <div class="header-controlMenu  col-sm-hide col-xs-hide">
+                    <span class="header-nomeEmpresa">
+                      <img src="/images/logo.gif" alt="LNMIIT" height="40px" width="Auto">
+                    </span>
+
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="header-menu">
+                <h1>Dashboard</h1>
+            </div>
+        </div>
+        <div class="menu-box">
+            <div class="menu-wrapper-inner">
+                <div class="menu-wrapper">
+                    <div class="menu-slider">
+                        <div class="menu">
+                            <ul >
+                                <li>
+                                    <div class="menu-item"><a href="/users/placements" class="menu-anchor"><i class="fa fa-university"></i> Placement Events</a>
+                                      <!-- <i class="fa fa-arrow-right pull-right main-arrow"></i> -->
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="menu-item"><a href="/users/students"><i class="fa fa-users"></i> Students</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="menu-item"><a href="/users/jobOffers" class=""><i class="fa fa-envelope-open-o"></i> Job Offers</a></div>
+                                </li>
+                                <li>
+                                    <div class="menu-item"><a href="/users/internOffers" class=""><i class="fa fa-handshake-o"></i> Internship Offers</a></div>
+                                </li>
+                                <li>
+                                    <div class="menu-item"><a href="/users/categories" class=""><i class="fa fa-tags"></i> Categories</a></div>
+                                </li>
+                                <li>
+                                    <div class="menu-item"><a href="/users/accounts" class=""><i class="fa fa-cog"></i> Manage Accounts</a></div>
+                                </li>
+                                <li>
+                                    <div class="menu-item"><a href="/users/team" class=""><i class="fa fa-address-book"></i> Team Members</a></div>
+                                </li>
+
+                                <li>
+                                    <div class="menu-item"><a href="/users/aboutUs" class=""><i class="fa fa-sticky-note"></i> About Portal</a></div>
+                                </li>
+                                <li>
+                                    <div class="menu-item"><a href="/users/logout" class=""><i class="fa fa-power-off"></i> Log Out</a></div>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- <div class="submenu menu" data-menu="1">
+                            <div class="submenu-back">
+                                <div class="menu-item">
+                                  <i class="fa fa-arrow-left pull-left submenu-arrow"></i>
+                                  <a href="#" class="menu-back">
+
+                                    BACK</a>
+                                </div>
+                            </div>
+                            <ul>
+                                <li>
+                                    <div class="menu-item"><a href="/users/opportunitiesForMe">Opportunities For Me</a></div>
+                                </li>
+                                <li>
+                                    <div class="menu-item"><a href="/users/opportunitiesForAll">Opportunities For All</a></div>
+                                </li>
+                            </ul>
+                        </div> -->
+                        <!-- <div class="submenu menu" data-menu="4">
+                            <div class="submenu-back">
+                                <div class="menu-item">
+                                  <i class="fa fa-arrow-left pull-left submenu-arrow"></i>
+                                  <a href="#" class="menu-back">BACK</a></div>
+                            </div>
+                            <ul>
+                                <li>
+                                    <div class="menu-item"><a href="/users/personal">Personal</a></div>
+                                </li>
+                                <li>
+                                    <div class="menu-item"><a href="/users/academic">Academic</a></div>
+                                </li>
+                            </ul>
+                        </div> -->
+                        <!-- <div class="submenu menu" data-menu="3">
+                            <div class="submenu-back">
+                                <div class="menu-item">
+
+                                  <a href="#" class="menu-back">BACK</a></div>
+                            </div>
+                            <ul>
+                                <li>
+                                    <div class="menu-item"><a href="#" >Subitem</a></div>
+                                </li>
+                                <li>
+                                    <div class="menu-item"><a href="#">Subitem</a></div>
+                                </li>
+                                <li>
+                                    <div class="menu-item"><a href="#">Subitem</a></div>
+                                </li>
+                            </ul>
+                        </div> -->
+
+
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="conteudo">
+        <div class="conteudo-inner">
+            <div class="conteudo-wrapper">
+
+                {{#if success_msg}}
+                    <div class="alert alert-success">{{success_msg}}</div>
+                {{/if}}
+
+                {{#if error_msg}}
+                    <div class="alert alert-danger">{{error_msg}}</div>
+                {{/if}}
+
+                {{#if error}}
+                    <div class="alert alert-danger">{{error}}</div>
+               {{/if}}
+                {{{body}}}
+            </div>
+        </div>
+    </div>
+    <!-- <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script> -->
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script  src="/js/dashboard.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+<div class="conteudo-box">
+    <div class="conteudo-boxInner">
+    <div class="form skills">
+        <form class="" action="/users/addSkill" method="post">
+          <h2>Add New Skills</h2>
+          <div class="form-group">
+            <div class="relative">
+              <input name="skill" class="form-control" list="skills" type="text" required="" placeholder="Ex. Javascript">
+              <i class="fa fa-file-code-o"></i>
+            </div>
+          </div>
+            <datalist id="skills">
+              <option value="C" label="C"></option>
+              <option value="C++" label="C++"></option>
+              <option value="Java" label="Java"></option>
+              <option value="Ruby" label="Ruby"></option>
+              <option value="Python" label="Python"></option>
+              <option value="ReactJs" label="ReactJs"></option>
+              <option value="HTML5" label="HTML5"></option>
+              <option value="PHP" label="PHP"></option>
+              <option value="PHPmyAdmin" label="PHPmyAdmin"></option>
+              <option value="CSS3" label="CSS3"></option>
+              <option value="BootStrap" label="BootStrap"></option>
+              <option value="JavaScript" label="JavaScript"></option>
+              <option value="JQuery" label="JQuery"></option>
+              <option value="AngularJs" label="AngularJs"></option>
+              <option value="NodeJs" label="NodeJs"></option>
+              <option value="Mysql" label="Mysql"></option>
+              <option value="MongoDb" label="MongoDb"></option>
+            </datalist>
+            <div class="tright">
+              <button class="movebtn movebtnre" type="Reset"><i class="fa fa-fw fa-refresh"></i> Clear </button>
+              <button class="movebtn movebtnsu" type="submit">Add <i class="fa fa-fw fa-plus"></i></button>
+            </div>
+            
+        </form>
+        <h2>Your Skills</h2>
+        {{#each user.skills}}
+        <form class="skillForm" action="/users/removeSkill" method="post">
+          <h4>{{this}}</h4>
+          <input type="hidden" value={{this}} name="skill">
+          <button type="submit" name="deleteSkill"><i class="fa fa-close"></i></button>
+        </form>
+        {{/each}}
+
+          <!-- <form class="skillForm">
+            <h4>Computer Graphics</h4>
+            <input type="hidden" value="Computer Graphics" disabled="true">
+            <button type="submit" name="deleteSkill"><i class="fa fa-close"></i></button>
+          </form>
+          <form class="skillForm">
+            <h4>PHP</h4>
+            <input type="hidden" value="PHP" disabled="true">
+            <button type="submit" name="deleteSkill"><i class="fa fa-close"></i></button>
+          </form >
+          <form class="skillForm">
+            <h4>PHPMyAdmin</h4>
+            <input type="hidden" value="PHPMyAdmin" disabled="true">
+            <button type="submit" name="deleteSkill"><i class="fa fa-close"></i></button>
+          </form>
+          <form class="skillForm">
+            <h4>PHP</h4>
+            <input type="hidden" value="PHP" disabled="true">
+            <button type="submit" name="deleteSkill"><i class="fa fa-close"></i></button>
+          </form>
+
+          <form class="skillForm">
+            <h4>Computer Graphics</h4>
+            <input type="hidden" value="Computer Graphics" disabled="true">
+            <button type="submit" name="deleteSkill"><i class="fa fa-close"></i></button>
+          </form> -->
+    </div>
+
+</div>
+</div>
