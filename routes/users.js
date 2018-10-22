@@ -203,7 +203,7 @@ router.get('/dashboard',function(req,res){
 	}
 	else if(req.user.user_level=="admin"){
 		console.log("Logged In As Admin");
-		res.render('admin_dashboard', {layout: 'layoutb.handlebars'});
+		res.redirect('/users/placements');
 	}
 });
 
@@ -505,14 +505,18 @@ router.post('/removeSkill', function(req, res){
 /*----------------------------------------------Admin------------------------------------------*/
 
 //Placement
-router.get('/placements', function(req, res){
-	console.log("On placement offers Page");
-	var CurrUser= req.user;
-	Company.getAllCompanies(CurrUser,function(err,result){
-		if(err) throw err;
-		console.log(result);
-		res.render('placements',{layout:'layoutb.handlebars',result:result});
+router.get('/placements', function(req, res) {
+	if(req.user.user_level == "admin") {
+		console.log("On placement offers Page");
+		var CurrUser= req.user;
+		Company.getAllCompanies(CurrUser,function(err,result) {
+			if(err) throw err;
+				console.log(result);
+			res.render('placements',{layout:'layoutb.handlebars',result:result});
 		});
+	}
+	else
+		res.send('<center><h1>You are not authorized to access this page!<h1><center>');
 });
 
 //Create Event display

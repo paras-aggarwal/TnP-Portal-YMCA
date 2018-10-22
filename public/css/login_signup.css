@@ -1,5 +1,10 @@
 /* Reset */
-
+body{
+  background-image: url("https://colorlib.com/etc/regform/colorlib-regform-8/images/signup-bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
 html,
 body,
 div,
@@ -162,10 +167,10 @@ button {
   padding: 15px;
   width: calc(100% - 30px);
   text-align: center;
-  font-size: 16px;
-  color: #fff;
-  background-color: #FF5722;
-  border: 1px solid #F55320;
+  font-size: 30px;
+  /* color: #000; */
+  /* background-color: #FF5722; */
+  /* border: 1px solid #F55320; */
 }
 
 .login-signup-content {
@@ -268,19 +273,20 @@ div.rememberme {
 
 .submit-btn {
   width: 100%;
-  margin-top: 28px;
+  /* margin-top: 28px; */
   text-align: center;
-  padding: 5px 0;
-  border-radius: 20px;
+  /* padding: 5px 0; */
   background-color: #FF5722;
   color: #FFF;
   border: none;
-  transition: 0.5s cubic-bezier(0.72, 0.15, 0.53, 0.84);
+  /* transition: 0.5s cubic-bezier(0.72, 0.15, 0.53, 0.84); */
 }
 
 .submit-btn:hover {
   background-color: #F4511E;
   cursor: pointer;
+  transition: 0.5s;
+  box-shadow: 0px 5px 22px #888888;
 }
 
 .forgot-pass {
@@ -342,7 +348,7 @@ div.rememberme {
 
 .alertMsg{
   position: relative;
-  width: 90%;
+  width: 60%;
   text-align: center;
   padding: 20px;
   margin: 20px auto;
@@ -357,4 +363,65 @@ div.rememberme {
 .danger{
     color: #A94442;
     background-color: #F2DEDE;
+}
+
+.wrapper {    
+	margin-top: 80px;
+  margin-bottom: 20px;
+  /* display: inline-block; */
+}
+
+.form-signin {
+  max-width: 420px;
+  padding: 30px 38px 66px;
+  margin: 0 auto;
+  background-color: #eee;
+  opacity: 0.6;
+  border: 3px dotted rgba(0,0,0,0.1);  
+  transition: 1s;
+  
+  }
+
+  .form-signin:hover {
+    transition: 1s;
+    opacity: 1;
+     
+    }
+
+.form-signin-heading {
+  text-align:center;
+  margin-bottom: 30px;
+}
+
+.form-control {
+  position: relative;
+  font-size: 16px;
+  height: auto;
+  padding: 10px;
+}
+
+input[type="text"] {
+  margin-bottom: 0px;
+}
+
+input[type="password"] {
+  margin-bottom: 20px;
+}
+
+.colorgraph {
+  height: 7px;
+  border-top: 0;
+  background: #c4e17f;
+  border-radius: 5px;
+  background-image: -webkit-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+  background-image: -moz-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+  background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+  background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+}
+.fixed-bottom {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1030;
 }
