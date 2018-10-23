@@ -348,13 +348,12 @@ div.rememberme {
 
 .alertMsg{
   position: relative;
-  width: 60%;
+  width: 80%;
   text-align: center;
   padding: 20px;
   margin: 20px auto;
   background-color: #FF5722;
   color: white;
-  font-weight: bold;
 }
 .success{
     color: #447C44;

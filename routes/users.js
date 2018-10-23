@@ -37,6 +37,7 @@ router.post('/register',function(req,res){
 	var email = req.body.email;
 	var password = req.body.password;
 	var confirm_password = req.body.confirm_password;
+	rollno = rollno.toUpperCase();
 	//var user_level = req.body.user_level;
 
 	//Validation
@@ -58,7 +59,7 @@ router.post('/register',function(req,res){
 	else{
 		User.getUserByEmail(email, function(err, user){
 			if(err) throw err;
-			if(user){
+			if(user) {
 				console.log(user);
 				console.log("user already Exist");
 				req.flash('error_msg', 'The Email Id is already registered');
@@ -379,10 +380,8 @@ router.post('/companyDetail2', function(req, res){
 	var companyId = req.body.compId;
 	console.log(companyId);
 	Company.getCompanyByid(companyId,function(err,result){
-		if(err) throw err;
-		//console.log(result);
-		//console.log(req.user);
-
+		if(err)
+			throw err;
 		if(req.user.user_level == 'student'){
 			res.render('CompanyDetail2',{result:result,companyid: companyId});
 		}
@@ -398,10 +397,8 @@ router.post('/companyDetail1', function(req, res){
 	var companyId = req.body.compId;
 	console.log(companyId);
 	Company.getCompanyByid(companyId,function(err,result){
-		if(err) throw err;
-		//console.log(result);
-		//console.log(req.user);
-
+		if(err)
+			throw err;
 		if(req.user.user_level == 'student'){
 			res.render('CompanyDetail1',{result:result,companyid: companyId});
 		}
@@ -416,10 +413,8 @@ router.post('/companyDetail', function(req, res){
 	var companyId = req.body.compId;
 	console.log(companyId);
 	Company.getCompanyByid(companyId,function(err,result){
-		if(err) throw err;
-		//console.log(result);
-		//console.log(req.user);
-
+		if(err)
+			throw err;
 		if(req.user.user_level == 'student'){
 			res.render('CompanyDetail',{result:result,companyid: companyId});
 		}
@@ -521,16 +516,18 @@ router.get('/placements', function(req, res) {
 
 //Create Event display
 router.get('/createEvent', function(req, res){
-	console.log("On Create Event Page");
-	var companyid = req.body.id;
-	User.getUserByLevel('student',function(err, result){
-		if(err) throw err;
-		//console.log("result aa gaya",companyid);
-		Company.getCompanyByid(companyid,function(err,result){
-			//console.log(result);
-			res.render('createEvent',{layout:'layoutb.handlebars',result:result});
+	if(req.user.user_level == "admin") {
+		console.log("On Create Event Page");
+		var companyid = req.body.id;
+		User.getUserByLevel('student',function(err, result){
+			if(err) throw err;
+			Company.getCompanyByid(companyid,function(err,result){
+				res.render('createEvent',{layout:'layoutb.handlebars',result:result});
+			});
 		});
-	});
+	}
+	else
+		res.send("<center><h1>You are not authorized to access this page!<h1><center>");
 });
 
 //Edit Event display
@@ -539,9 +536,7 @@ router.post('/createEvent', function(req, res){
 	var companyid = req.body.id;
 	User.getUserByLevel('student',function(err, result){
 		if(err) throw err;
-		//console.log("result aa gaya",companyid);
 		Company.getCompanyByid(companyid,function(err,result){
-			//console.log(result);
 			res.render('createEvent',{layout:'layoutb.handlebars',result:result});
 		});
 	});

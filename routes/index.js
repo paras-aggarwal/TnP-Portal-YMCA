@@ -7,11 +7,8 @@ var nodemailer = require("nodemailer");
 var crypto = require("crypto");
 var User = require('../models/user');
 var md5 = require('md5');
-//Get Homepage
-router.get('/',function(req,res){
 
-	// res.render('login_signup',{layout: 'layout_login_signup'});
-	// console.log('home page started');
+router.get('/',function(req,res) {
 	if(req.isAuthenticated()){
 		res.redirect('/users/dashboard');
 	}
@@ -20,37 +17,27 @@ router.get('/',function(req,res){
 		res.render('login_signup',{layout: 'layout_login_signup'});
 	 	console.log('home page started');
 	}
-
 });
+
 router.get('/forgotPassword',function(req,res){
-
-	// res.render('login_signup',{layout: 'layout_login_signup'});
-	// console.log('home page started');
-
-		res.render('forgot',{layout: 'layout_login_signup'});
-	 	console.log('home page started');
-
+	res.render('forgot',{layout: 'layout_login_signup'});
 });
+
 router.get('/reset/:token', function(req, res) {
   User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-    if (!user) {
-      req.flash('error', 'Password reset token is invalid or has expired.');
+		if (!user) {
+      req.flash('error_msg', 'Password reset token is invalid or has expired.');
       return res.redirect('/forgotPassword');
     }
     res.render('reset', {layout:'layout_login_signup',user: req.user,token:req.params.token});
   });
 });
+
 router.post('/reset/:token', function(req, res) {
 	var pass = req.body.password;
 	var conpass = req.body.ConfirmPassword;
 	console.log(pass);
 	console.log(conpass);
-	// req.checkBody('pass','New Password is required').notEmpty();
-	// req.checkBody('conpass','Confirm Password is required').notEmpty();
-	// req.checkBody('conpass','Passwords do not match').equals(req.body.password);
-	//
-	// var errors = req.validationErrors();
-
 	if(req.body.password != req.body.ConfirmPassword){
 		req.flash('error_msg','password And Confirm password do not match !!');
 		res.redirect('/reset/'+req.params.token);
@@ -101,6 +88,7 @@ router.post('/reset/:token', function(req, res) {
 	  });
 	}
 });
+
 router.post('/forgot',function(req,res){
 	async.waterfall([
     function(done) {
@@ -153,8 +141,6 @@ router.post('/forgot',function(req,res){
     res.redirect('/forgotPassword');
   });
 
-	// console.log("password Reset Action");
-	// req.flash('success_msg', 'Password Reset Link Succesfully Sent on your email address !!');
 	req.flash('success_msg', 'An e-mail has been sent to ' + req.body.email + ' with further instructions.');
 	res.redirect('/');
 

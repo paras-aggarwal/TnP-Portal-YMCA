@@ -1,18 +1,31 @@
 <!DOCTYPE html>
 <html lang="en" >
 <head>
+  <title>Reset password | YMCA TnP Portal</title>
   <meta charset="UTF-8">
-  <title>Signup/Signin</title>
-
-
-
-      <link rel="stylesheet" href="/css/login_signup.css">
-      <link rel="icon" href="/images/favicon.png" type="image/png" sizes="16x16">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <link rel="stylesheet" href="/css/login_signup.css">
+  <link rel="icon" href="https://img.collegepravesh.com/2017/03/YMCA-Logo.png" type="image/png" sizes="16x16">
 </head>
 
 <body>
-  <div class="login-signup l-attop" id="login">
+
+  <div class="container col-md-12">
+	  <div class="wrapper">
+      <form role="form" action="/reset/{{token}}" method="post" class="form-signin">       
+        <h2 class="form-signin-heading login-signup-title">RESET PASSWORD</h2>
+        <hr class="colorgraph"><br>
+        <input type="password" name="password" class="field-input form-control" placeholder="New password" autofocus="autofocus" required/>
+        <input type="password" name="ConfirmPassword" class="field-input form-control" placeholder="Confirm password" required/>
+        <button type="submit" class="btn btn-lg submit-btn btn-block">Update Password</button>
+      </form>
+	  </div>
+  </div>
+
+  {{!-- <div class="login-signup l-attop" id="login">
   <div class="login-signup-title">
     LOG IN
   </div>
@@ -35,8 +48,7 @@
     </form>
 
   </div>
-</div>
-    <script  src="/js/login_signup.js"></script>
-
+</div> --}}
+  <script  src="/js/login_signup.js"></script>
 </body>
 </html>

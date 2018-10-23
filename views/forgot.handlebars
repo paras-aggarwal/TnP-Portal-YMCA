@@ -1,36 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" >
 <head>
+  <title>YMCA TnP Portal</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Signup/Signin</title>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
-
-      <link rel="stylesheet" href="/css/login_signup.css">
-      <link rel="icon" href="/images/favicon.png" type="image/png" sizes="16x16">
-
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <link rel="stylesheet" href="/css/login_signup.css">
+  <link rel="icon" href="/images/favicon.png" type="image/png" sizes="16x16">
 </head>
-
 <body>
 
-  <div class="container col-md-12">
+  <div class="container">
 	  <div class="wrapper">
 		  <form role="form" action="/forgot" method="post" class="form-signin">       
 		    <h2 class="form-signin-heading login-signup-title">RESET PASSWORD</h2>
 			  <hr class="colorgraph"><br>
-			  <input type="email" name="email" class="field-input form-control" placeholder="E-mail" /><br>
-        <button class="btn btn-lg submit-btn btn-block">
-          Reset Password
-        </button> 		  
+			  <input type="email" name="email" class="field-input form-control" placeholder="E-mail" required /><br>
+        <button class="btn btn-lg submit-btn btn-block">Reset Password</button> 		  
 		  </form>			
 	  </div>
   </div>
 
-<div class="navbar navbar-sticky-bottom navbar-light bg-light"><span class="navbar-brand">YMCAUST</span></div>
-    <script  src="/js/login_signup.js"></script>
-
+  <script  src="/js/login_signup.js"></script>
 </body>
 </html>
