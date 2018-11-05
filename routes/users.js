@@ -311,7 +311,10 @@ router.post('/submit_academic', ensureAuthenticated, function(req,res){
 //About US Profile
 router.get('/aboutUs', function(req, res){
 	console.log("On About Us Page");
-	res.render('aboutUs');
+	if(req.user.user_level=="student")
+		res.render('aboutUs');
+	else
+		res.render('aboutUs', {layout: 'layoutb.handlebars'});
 });
 
 //opportunities for me Profile
