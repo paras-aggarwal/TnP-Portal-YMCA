@@ -44,9 +44,18 @@ var UserSchema = mongoose.Schema({
 		spi_8: Number,
 	},
 	cpi: Number,
-	percent_10_value: Number,
-	percent_12_value: Number,
-	percent_diploma_value: Number,
+	percent_10_value: {
+		type: Number,
+		default: 0
+	},
+	percent_12_value: {
+		type: Number,
+		default: 0
+	},
+	percent_diploma_value: {
+		type: Number,
+		default: 0
+	},
 	backlogs:{
 		type: Number,
 		default: 0

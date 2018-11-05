@@ -87,7 +87,10 @@ router.post('/register',function(req,res){
 
 //Change password
 router.get('/ChangePassword',function(req,res){
-		res.render('ChangePassword',{layout:'layoutb.handlebars'});
+	if(req.user.user_level == 'student')
+		res.render('ChangePassword', {layout:'layout.handlebars'});
+	else if(req.user.user_level == 'admin')
+		res.render('ChangePassword', {layout:'layoutb.handlebars'});
 });
 
 //Change Password
@@ -318,7 +321,6 @@ router.get('/opportunitiesForMe', function(req, res){
 	console.log(currUser);
 	Company.getUserByOppurtunity(currUser,function(err,result){
 		if(err) throw err;
-		req.flash('success_msg', 'aa gya data!!!');
 		console.log(result);
 		res.render('opportunitiesForMe',{result:result});
 	});
@@ -561,13 +563,21 @@ router.post('/submit_event',function(req,res){
 	var type = req.body.type;
 	var branch = req.body.branch;
 	var percent_10 = req.body.percent_10;
+	if(percent_10 == "")
+		percent_10 = 0;
 	var percent_12 = req.body.percent_12;
+	if(percent_12 == "")
+		percent_12 = 0;
 	var percent_diploma = req.body.percent_diploma;
+	if(percent_diploma == "")
+		percent_diploma = 0;
 	var cpi = req.body.cpi;
+	if(cpi == "")
+		cpi = 0;
 	var backlogs = req.body.backlogs;
 	var positionDetails = req.body.positiondetails;
 	var schedule = req.body.schedule;
-	var addDetails =req.body.additionaldetails;
+	var addDetails = req.body.additionaldetails;
 
 	var eligibleStudents = [];
 	User.getAllUsersByOppurtunity(percent_10, percent_12, percent_diploma, cpi, backlogs, branch, function(err, eligible) {
@@ -594,17 +604,44 @@ router.post('/submit_event',function(req,res){
 		});
 		console.log('submit events');
 		Company.createCompany(newCompany,function(err,result){
-			if(err) throw err;
+			if(err) {
+				req.flash('error_msg','Error adding company!');
+				res.redirect('/users/createEvent');
+			} else {
+				req.flash('success_msg','Company added succesfully!');
+				res.redirect('/users/companyattachments');
 				console.log(result);
+			}
 		});
 	});
-	req.flash('success_msg','Company added succesfully');
-	res.redirect('/users/companyattachments');
+	
 });
 
+// var multerConf = {
+// 	storage: multer.diskStorage({
+// 		destination: function(req, file, next) {
+// 			next(null, './public/docs');
+// 		},
+// 		filename: function(req, file, next) {
+// 			var ext = file.mimetype.split('/')[1];
+// 			next(null, file.fieldname + '-' + Date.now() + '-' + ext);
+// 		}
+// 	}),
+// 	fileFilter: function(req, file, next) {
+// 		if(!file) {
+// 			next();
+// 		}
+// 		var image = file.mimetype.startsWith('image/');
+// 		if(image){
+// 			next(null, true);
+// 		} else {
+// 			next({message: "File not supported"}, false);
+// 		}
+// 	}
+// };
 var storage =   multer.diskStorage({
   destination: function (req, file, callback) {
-    callback(null, './companyfiles/');
+    callback(null, './public/docs/');
   },
   filename: function (req, file, callback) {
     callback(null, file.fieldname + '-' + Date.now());
@@ -700,13 +737,14 @@ router.post('/showregistered',function(req,res){
 		{
 			User.getUserByEmail(company.registered_students[i],function(err,result){
 				students.push(result);
-				console.log(result);
+				console.log(students);
 			});
 		}
+		
 		res.render('showRegisteredStudents',{layout:'layoutb.handlebars', result:students, companyid:companyId});
 	});
 });
-//Set Offered Student
+//Set Offered Student]
 router.post('/setOffered',function(req,res){
 	var companyId = req.body.id;
 	var studentList = req.body.studentList;

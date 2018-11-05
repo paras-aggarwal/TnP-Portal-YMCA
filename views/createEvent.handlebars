@@ -17,9 +17,9 @@
 
                   <label for="">Type</label>
                     <select name="type" value="{{result.type}}">
-                      <option value="fte">Full Time</option>
-                      <option value="sli">Intern</option>
-                      <option value="ftesli">Full Time + Intern</option>
+                      <option value="Full_time">Full Time</option>
+                      <option value="Intern">Intern</option>
+                      <option value="Full_time_and_Intern">Full Time + Intern</option>
                     </select>
                   <div class="branch-selector">
                     <label>Branches</label>
@@ -28,7 +28,7 @@
                       <input type="checkbox" name="branch" value="ECE" style="width:20px">ECE &nbsp; &nbsp;
                       <input type="checkbox" name="branch" value="ME" style="width:20px">ME &nbsp; &nbsp;
                       <input type="checkbox" name="branch" value="EIC" style="width:20px">EIC &nbsp; &nbsp;
-                      <input type="checkbox" name="branch" value="EIC" style="width:20px">EL
+                      <input type="checkbox" name="branch" value="EL" style="width:20px">EL
                   </div>
                   </br></br>
 
@@ -39,7 +39,7 @@
 
                   <div class="col-md-6" style="padding-right: 0;">
                     <label for="">12th Percentage</label>
-                    <input type="text" name="percent_12" value="{{result.criteria.percent_10}}" placeholder="12th Percent"/>
+                    <input type="text" name="percent_12" value="{{result.criteria.percent_12}}" placeholder="12th Percent"/>
                   </div>
 
                   <div class="col-md-6" style="padding-right: 0;">
