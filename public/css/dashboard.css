@@ -20,7 +20,13 @@ a{ text-decoration:none;}
    color:#ffffff;
    font-weight:bold;
    font-size: 2em;
- }
+   display: block;
+}
+@media screen and (max-width:768) {
+    .brand-icon{
+        display: none;
+    }
+}
 
 .box-right{ float: right;}
 button, input[type="submit"]{
@@ -190,6 +196,13 @@ button, input[type="submit"]{
 #dropdown ul li a:hover {
   color: #6fa0e9;
   background: #e7f0f7;
+}
+@media screen and (max-width:768px) {
+    #dropdown {
+        font-size: 1em;
+        width: 100px;
+        padding: 5px 5px;
+    }
 }
 /*------*/
 /**-------Profile Form---------**/
@@ -815,7 +828,13 @@ button:hover {
   border-radius: 50%;
   padding: 2px;
 }
-
+@media screen and (max-width:768px) {
+    .create {
+        font-size: 10px;
+        width: 30%;
+        padding: 5px;
+    }
+}
 /****************************/
 /*RESPOSIVE*/
 /****************************/

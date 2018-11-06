@@ -4,16 +4,12 @@ var router = express.Router();
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var md5 = require('md5');
-//var bcrypt = require('bcrypt')
 var helpers = require('handlebars-helpers')();
 var async = require("async");
 var nodemailer = require("nodemailer");
 var crypto = require("crypto");
-
 var fileUpload = require('express-fileupload');
-
 var multer  = require('multer')
-
 var User = require('../models/user');
 var Company = require('../models/company');
 /*-----------------------------------------Common------------------------------------------------*/
@@ -86,7 +82,7 @@ router.post('/register',function(req,res){
 });
 
 //Change password
-router.get('/ChangePassword',function(req,res){
+router.get('/ChangePassword',ensureAuthenticated,function(req,res){
 	if(req.user.user_level == 'student')
 		res.render('ChangePassword', {layout:'layout.handlebars'});
 	else if(req.user.user_level == 'admin')
@@ -199,7 +195,7 @@ router.post('/login', function(req, res, next) {
 });
 
 //Dashboard
-router.get('/dashboard',function(req,res){
+router.get('/dashboard',ensureAuthenticated,function(req,res){
 	console.log('dashboard');
 	if(req.user.user_level=="student"){
 		// res.send("Logged In As Student");
@@ -212,7 +208,7 @@ router.get('/dashboard',function(req,res){
 });
 
 //logout
-router.get('/logout', function(req, res){
+router.get('/logout',ensureAuthenticated, function(req, res){
 	req.logout();
 	req.flash('success_msg', 'You are logged out');
 	res.redirect('/');
@@ -309,7 +305,7 @@ router.post('/submit_academic', ensureAuthenticated, function(req,res){
 });
 
 //About US Profile
-router.get('/aboutUs', function(req, res){
+router.get('/aboutUs',ensureAuthenticated, function(req, res){
 	console.log("On About Us Page");
 	if(req.user.user_level=="student")
 		res.render('aboutUs');
@@ -318,7 +314,7 @@ router.get('/aboutUs', function(req, res){
 });
 
 //opportunities for me Profile
-router.get('/opportunitiesForMe', function(req, res){
+router.get('/opportunitiesForMe',ensureAuthenticated, function(req, res){
 	var currUser = req.user;
 	console.log("On opportunities For Me");
 	console.log(currUser);
@@ -330,7 +326,7 @@ router.get('/opportunitiesForMe', function(req, res){
 });
 
 //opportunities for all Profile
-router.get('/opportunitiesForAll', function(req, res){
+router.get('/opportunitiesForAll',ensureAuthenticated, function(req, res){
 	console.log("On opportunities For All");
 	var currUser = req.user;
 	Company.getAllCompanies(currUser,function(err,result){
@@ -340,7 +336,7 @@ router.get('/opportunitiesForAll', function(req, res){
 });
 
 //opportunities for all Profile
-router.get('/applications', function(req, res){
+router.get('/applications',ensureAuthenticated, function(req, res){
 	console.log("On Aplications page");
 	var currUser = req.user;
 	var appl=[];
@@ -360,7 +356,7 @@ router.get('/applications', function(req, res){
 	res.render('applications',{result:appl1});
 });
 //opportunities for all Profile
-router.get('/offers', function(req, res){
+router.get('/offers',ensureAuthenticated, function(req, res){
 	console.log("On Job offers Page");
 	var currUser = req.user;
 	var appl=[];
@@ -426,7 +422,7 @@ router.post('/companyDetail', function(req, res){
 	});
 });
 //to Apply on opportunity for all
-router.get('/apply/:compId',function(req,res){
+router.get('/apply/:compId',ensureAuthenticated,function(req,res){
 	var cid = req.params.compId;
 	//console.log(cid);
 	Company.getCompanyByid(cid,function(err,company){
@@ -448,25 +444,25 @@ router.get('/apply/:compId',function(req,res){
 //----------Show Eligible Student List----------
 
 //to attch resume on opportunity for all
-router.get('/toapply', function(req, res){
+router.get('/toapply',ensureAuthenticated, function(req, res){
 	console.log("On to apply offers Page");
 			res.render('toapply');
 });
 
 //applications
-router.get('/applications', function(req, res){
+router.get('/applications',ensureAuthenticated, function(req, res){
 	console.log("On Aplications page");
 	res.render('applications');
 });
 
 //offers page
-router.get('/offers', function(req, res){
+router.get('/offers',ensureAuthenticated, function(req, res){
 	console.log("On Job offers Page");
 	res.render('offers');
 });
 
 //Skills for all Profile
-router.get('/skills', function(req, res){
+router.get('/skills',ensureAuthenticated, function(req, res){
 	console.log("On Skills Page");
 	res.render('skills');
 });
@@ -505,7 +501,7 @@ router.post('/removeSkill', function(req, res){
 /*----------------------------------------------Admin------------------------------------------*/
 
 //Placement
-router.get('/placements', function(req, res) {
+router.get('/placements',ensureAuthenticated, function(req, res) {
 	if(req.user.user_level == "admin") {
 		console.log("On placement offers Page");
 		var CurrUser= req.user;
@@ -520,7 +516,7 @@ router.get('/placements', function(req, res) {
 });
 
 //Create Event display
-router.get('/createEvent', function(req, res){
+router.get('/createEvent',ensureAuthenticated, function(req, res){
 	if(req.user.user_level == "admin") {
 		console.log("On Create Event Page");
 		var companyid = req.body.id;
@@ -620,28 +616,6 @@ router.post('/submit_event',function(req,res){
 	
 });
 
-// var multerConf = {
-// 	storage: multer.diskStorage({
-// 		destination: function(req, file, next) {
-// 			next(null, './public/docs');
-// 		},
-// 		filename: function(req, file, next) {
-// 			var ext = file.mimetype.split('/')[1];
-// 			next(null, file.fieldname + '-' + Date.now() + '-' + ext);
-// 		}
-// 	}),
-// 	fileFilter: function(req, file, next) {
-// 		if(!file) {
-// 			next();
-// 		}
-// 		var image = file.mimetype.startsWith('image/');
-// 		if(image){
-// 			next(null, true);
-// 		} else {
-// 			next({message: "File not supported"}, false);
-// 		}
-// 	}
-// };
 var storage =   multer.diskStorage({
   destination: function (req, file, callback) {
     callback(null, './public/docs/');
@@ -655,7 +629,7 @@ var upload = multer({
 });
 
 //Comapany Attachments
-router.get('/companyattachments',function(req,res){
+router.get('/companyattachments',ensureAuthenticated,function(req,res){
 	res.render('addCompanyAttachments',{layout: 'layoutb.handlebars'});
 });
 
@@ -666,7 +640,7 @@ router.post('/companyattachmentsUpload', upload.single('file'), (req,res) => {
 });
 
 //Students
-router.get('/Students', function(req, res){
+router.get('/Students',ensureAuthenticated, function(req, res){
 	console.log("On Students page");
 	User.getUserByLevel('student', function(err, result){
 		if(err)
@@ -677,7 +651,7 @@ router.get('/Students', function(req, res){
 });
 
 //jobOffers
-router.get('/JobOffers', function(req, res){
+router.get('/JobOffers',ensureAuthenticated, function(req, res){
 	console.log("On JobOffers page");
 	User.getUserByLevel('student',function(err, result){
 		if(err)
@@ -688,7 +662,7 @@ router.get('/JobOffers', function(req, res){
 });
 
 //InternshipOffers
-router.get('/internOffers', function(req, res){
+router.get('/internOffers',ensureAuthenticated, function(req, res){
 	console.log("On internOffers page");
 	User.getUserByLevel('student',function(err, result){
 		if(err)
@@ -699,7 +673,7 @@ router.get('/internOffers', function(req, res){
 });
 
 //Categories
-router.get('/categories', function(req, res){
+router.get('/categories',ensureAuthenticated, function(req, res){
 	console.log("On Categories Page Page");
 	res.render('categories', {layout:'layoutb.handlebars'});
 });
@@ -722,7 +696,6 @@ router.post('/showeligible',function(req,res){
 		{
 			User.getUserById(company.eligible_students[i],function(err,result){
 				students.push(result);
-				console.log("Yha Pahuch Gya !");
 				console.log(result);
 			});
 		}
@@ -740,10 +713,10 @@ router.post('/showregistered',function(req,res){
 		{
 			User.getUserByEmail(company.registered_students[i],function(err,result){
 				students.push(result);
-				console.log(students);
+				// console.log(students);
 			});
 		}
-		
+		console.log(students);
 		res.render('showRegisteredStudents',{layout:'layoutb.handlebars', result:students, companyid:companyId});
 	});
 });
