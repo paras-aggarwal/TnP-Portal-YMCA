@@ -1,54 +1,92 @@
 
 <div class="conteudo-box">
     <div class="conteudo-boxInner">
-      <div class="">
-        <span style="font-size:1.5em;font-weight:bold;">Event Name : </span>
-        <span style="font-size:1.5em;">{{result.name}}</span>
-      </div>
-      <div class="">
-        <span style="font-size:1.5em;font-weight:bold;">Position : </span>
-        <span style="font-size:1.5em;">{{result.position}}</span>
-      </div>
-      <div class="">
-        <span style="font-size:1.5em;font-weight:bold;">10th Percentage: </span>
-        <span style="font-size:1.5em;">{{result.criteria.percent_10}}</span>
-      </div>
-      <div class="">
-        <span style="font-size:1.5em;font-weight:bold;">12th Percentage : </span>
-        <span style="font-size:1.5em;">{{result.criteria.percent_10}}</span>
-      </div>
-      <div class="">
-        <span style="font-size:1.5em;font-weight:bold;">CGPA : </span>
-        <span style="font-size:1.5em;">{{result.criteria.cpi}}</span>
-      </div>
-      <div class="">
-        <span style="font-size:1.5em;font-weight:bold;">Backlogs : </span>
-        <span style="font-size:1.5em;">{{result.criteria.backlogs}}</span>
-      </div>
-      <div class="">
-        <span style="font-size:1.5em;font-weight:bold;">Branch : </span>
-        <span style="font-size:1.5em;">{{result.criteria.branch}}</span>
-      </div>
-      <div class="">
-        <span style="font-size:1.5em;font-weight:bold;">Schedule : </span>
-        <span style="font-size:1.5em;">{{result.schedule}}</span>
-      </div>
-      <div class="">
-        <span style="font-size:1.5em;font-weight:bold;">Additional Details : </span>
-        <span style="font-size:1.5em;">{{result.additional_details}}</span>
-      </div>
-      <div class="">
-        <span style="font-size:1.5em;font-weight:bold;">Eligible Students : </span>
-        <span style="font-size:1.5em;">{{result.additional_details}}</span>
-      </div>
-      <div class="">
-        <span style="font-size:1.5em;font-weight:bold;">Applied Students : </span>
-        <span style="font-size:1.5em;">{{result.additional_details}}</span>
-      </div>
-      <div class="">
-        <span style="font-size:1.5em;font-weight:bold;">Offered Students : </span>
-        <span style="font-size:1.5em;">{{result.additional_details}}</span>
-      </div>
+      <table id="company_details" class="display" width="100%" cellspacing="0">
+        <tr>
+          <div class="">
+            <td><span style="font-size:1.5em;font-weight:bold;">Event Name: </span>
+            <td><span style="font-size:1.5em;">{{result.name}}</span>
+          </div>
+        </tr>
+        <tr>
+          <div class="">
+            <td><span style="font-size:1.5em;font-weight:bold;">Position: </span>
+            <td><span style="font-size:1.5em;">{{result.position}}</span>
+          </div>
+        </tr>
+        <tr>
+          <div class="">
+            <td><span style="font-size:1.5em;font-weight:bold;">10th Percentage: </span>
+            <td><span style="font-size:1.5em;">{{result.criteria.percent_10}}</span>
+          </div>
+        </tr>
+        <tr>
+          <div class="">
+            <td><span style="font-size:1.5em;font-weight:bold;">12th Percentage: </span>
+            <td></td><span style="font-size:1.5em;">{{result.criteria.percent_12}}</span>
+          </div>
+        </tr>
+        <tr>
+          <div class="">
+            <td><span style="font-size:1.5em;font-weight:bold;">Diploma Percentage: </span>
+            <td><span style="font-size:1.5em;">{{result.criteria.percent_diploma}}</span>
+          </div>
+        </tr>
+        <tr>
+          <div class="">
+            <td><span style="font-size:1.5em;font-weight:bold;">CGPA: </span>
+            <td><span style="font-size:1.5em;">{{result.cpi}}</span>
+          </div>
+        </tr>
+        <tr>
+          <div class="">
+            <td><span style="font-size:1.5em;font-weight:bold;">Backlogs: </span>
+            <td><span style="font-size:1.5em;">{{result.criteria.backlogs}}</span>
+          </div>
+        </tr>
+        <tr>
+          <div class="">
+            <td><span style="font-size:1.5em;font-weight:bold;">Branch: </span>
+            <td><span style="font-size:1.5em;">{{result.criteria.branch}}</span>
+          </div>
+        </tr>
+        <tr>
+          <div class="">
+            <td><span style="font-size:1.5em;font-weight:bold;">Schedule: </span>
+            <td><span style="font-size:1.5em;">{{result.schedule}}</span>
+          </div>
+        </tr>
+        <tr>
+          <div class="">
+            <td><span style="font-size:1.5em;font-weight:bold;">Additional Details: </span>
+            <td><span style="font-size:1.5em;">{{result.additional_details}}</span>
+          </div>
+        </tr>
+        <tr>
+          <div class="">
+            <td><span style="font-size:1.5em;font-weight:bold;">Eligible Students : </span>
+            <td><span style="font-size:1.5em;">{{result.additional_details}}</span>
+          </div>
+        </tr>
+        <tr>
+          <div class="">
+            <td><span style="font-size:1.5em;font-weight:bold;">Applied Students : </span>
+            <td><span style="font-size:1.5em;">{{result.additional_details}}</span>
+          </div>
+        </tr>
+        <tr>
+          <div class="">
+            <td><span style="font-size:1.5em;font-weight:bold;">Offered Students : </span>
+            <td><span style="font-size:1.5em;">{{result.additional_details}}</span>
+          </div>
+        </tr>
+      </table>
 
     </div>
 </div>
+<script>
+/* Custom filtering function which will search data in column four between two values */
+$(document).ready(function(){
+    $('#company_details').DataTable();
+});
+</script>

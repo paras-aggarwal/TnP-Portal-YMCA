@@ -704,23 +704,26 @@ router.post('/showeligible',function(req,res){
 });
 
 //show registered students
-router.post('/showregistered',function(req,res){
+router.post('/showregistered', function(req, res) {
 	var companyId = req.body.id;
-	Company.getCompanyByid(companyId,function(err,company){
-		console.log(company.registered_students.length);
+	Company.getCompanyByid(companyId, function(err, company) {
 		var students = [];
-		for(var i = 0;i<company.registered_students.length;i++)
-		{
-			User.getUserByEmail(company.registered_students[i],function(err,result){
+		console.log(company.registered_students.length);
+		var i = 0;
+		for(var j = 0; j < company.registered_students.length; j++) {
+			User.getUserByEmail(company.registered_students[j], function(err, result) {
 				students.push(result);
-				// console.log(students);
+				if(i == company.registered_students.length - 1) {
+					console.log(students);
+					res.render('showRegisteredStudents', {layout: 'layoutb.handlebars', result: students, companyid: companyId});
+				}
+				i++;
 			});
 		}
-		console.log(students);
-		res.render('showRegisteredStudents',{layout:'layoutb.handlebars', result:students, companyid:companyId});
 	});
 });
-//Set Offered Student]
+
+//Set Offered Student
 router.post('/setOffered',function(req,res){
 	var companyId = req.body.id;
 	var studentList = req.body.studentList;

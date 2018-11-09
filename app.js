@@ -75,6 +75,10 @@ app.use(function (req, res, next) {
 app.use('/',route);
 app.use('/users',user);
 
+app.get('/*', function(req, res) {
+  res.send('<center><h1>404</h1><h2>Page not found!</h2></center>');
+});
+
 app.set('port',(process.env.PORT || 3000));
 app.listen(app.get('port'),function(){
 	console.log("Server started on port 3000");

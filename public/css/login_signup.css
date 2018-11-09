@@ -366,9 +366,8 @@ div.rememberme {
 }
 
 .wrapper {    
-	margin-top: 80px;
+	margin-top: 60px;
   margin-bottom: 20px;
-  /* display: inline-block; */
 }
 
 .form-signin {
@@ -418,15 +417,9 @@ input[type="password"] {
   background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
   background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
 }
-.fixed-bottom {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1030;
-}
-/* @media screen and (max-width:768px) {
-  .ddmenu {
-    display: none;
+@media screen and (max-width:768) {
+  .brand-img {
+    height: 10px;
+    width: 10px;
   }
-} */
+}
