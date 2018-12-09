@@ -5,7 +5,7 @@
  | Name | Description |
 | ------ | ------ |
 | HTML/CSS | Frontend |
-| AngularJs | Javascript Framework |
+| Bootstrap | Javascript Framework |
 | Jquery | Javascript Library|
 | Node.Js | Backend Server |
 | Express | Routing |
