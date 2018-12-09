@@ -7,16 +7,14 @@
                 <th>Title</th>
                 <th>Offer Type</th>
                 <th>Package/Stipend</th>
-                <th>Date Of Offer</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
           {{#each result}}
             <tr>
-                <td>{{this.rollno}}</td>
                 <td>{{this.name}}</td>
-                <td>B.TECH-{{this.branch}}</td>
+                <td>{{this.position}}</td>
+                <td>{{this.type}}</td>
             </tr>
               {{/each}}
         </tbody>

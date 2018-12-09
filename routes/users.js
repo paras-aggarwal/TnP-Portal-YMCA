@@ -81,6 +81,14 @@ router.post('/register',function(req,res){
 	}
 });
 
+// Support
+router.get('/support', function(req, res) {
+	if(req.user.user_level == 'student')
+		res.render('support', {layout:'layout.handlebars'});
+	else if(req.user.user_level == 'admin')
+		res.render('support', {layout:'layoutb.handlebars'});
+});
+
 //Change password
 router.get('/ChangePassword',ensureAuthenticated,function(req,res){
 	if(req.user.user_level == 'student')
@@ -95,25 +103,35 @@ router.post('/ChangePasswordFunction',ensureAuthenticated,function(req,res){
 	var newpass = req.body.NewPassword;
 	var conpass = req.body.ConfirmPassword;
 	var CurrUser= req.user;
-	//var user_level = req.body.user_level;
 	console.log(Curr);
 	console.log(newpass);
 	console.log(conpass);
 	console.log(CurrUser);
 	//Validation
-	req.checkBody('Curr','Old Password is required').notEmpty();
-	req.checkBody('newpass','New Password is required').notEmpty();
-	req.checkBody('conpass','Confirm Password is required').notEmpty();
-	req.checkBody('conpass','Passwords do not match').equals(req.body.NewPassword);
+	// req.checkBody('Curr','Old Password is required').notEmpty();
+	// req.checkBody('newpass','New Password is required').notEmpty();
+	// req.checkBody('conpass','Confirm Password is required').notEmpty();
+	//req.checkBody('conpass','Passwords do not match').equals(req.body.NewPassword);
 
-	var errors = req.validationErrors();
+	//var errors = req.validationErrors();
 
-	if(errors){
-		console.log(errors);
-		req.flash('error',errors);
+	// if(errors){
+	// 	console.log(errors);
+	// 	req.flash('error_msg', 'Invalid Credentials!');
+	// 	res.redirect('/users/ChangePassword');
+	// }
+	// else{
+	if(Curr == '' || newpass == '' || conpass == '') {
+		req.flash('error_msg', 'Please enter the required fields!');
 		res.redirect('/users/ChangePassword');
 	}
-	else{
+	else {
+		if(newpass != conpass) {
+			req.flash('error_msg', 'Passwords do not match!');
+			res.redirect('/users/ChangePassword');
+		}
+	}
+	
 		User.comparePassword(md5(Curr),req.user.password,function(err,isMatch){
 			if(err) throw err;
 			console.log(isMatch);
@@ -121,14 +139,22 @@ router.post('/ChangePasswordFunction',ensureAuthenticated,function(req,res){
 				console.log("Password Not Match :(");
 				return done(null,false,{message: 'Invalid Password'});
 			}
+			else {
+				if(CurrUser.password != md5(Curr)) {
+					req.flash('error_msg', 'Wrong old password!');
+					res.redirect('/users/ChangePassword');
+				}
+				else {
+					User.updateUsersPassword(CurrUser, md5(newpass), function(err,user){
+						if(err) throw err;
+						console.log(req.user);
+						req.flash('success_msg', 'Password Updated!');
+						res.redirect('/users/ChangePassword');
+					});
+				}
+			}
 		});
-		User.updateUsersPassword(CurrUser,md5(newpass),function(err,user){
-			if(err) throw err;
-				console.log(req.user);
-				req.flash('success_msg', 'Password Updated');
-				res.redirect('/users/ChangePassword');
-				});
-		}
+	// }
 });
 
 //login using local-strategy
@@ -345,15 +371,20 @@ router.get('/applications',ensureAuthenticated, function(req, res){
 	// for (var i = 0; i < application.length; i++) {
 	// 	appli[i].push(application[i]);
 	// }
+	var j = 0;
 	for (var i = 0; i < appl.length; i++) {
 		Company.getCompanyByid(appl[i],function(err,result){
 			if(err) throw err;
 			else {
 				appl1.push(result);
+				if(j == appl.length - 1)
+				{
+					res.render('applications', {result: appl1});
+				}
+				j++;
 			}
-			});
+		});
 	}
-	res.render('applications',{result:appl1});
 });
 //opportunities for all Profile
 router.get('/offers',ensureAuthenticated, function(req, res){
@@ -365,15 +396,20 @@ router.get('/offers',ensureAuthenticated, function(req, res){
 	// for (var i = 0; i < application.length; i++) {
 	// 	appli[i].push(application[i]);
 	// }
+	var j = 0;
 	for (var i = 0; i < appl.length; i++) {
 		Company.getCompanyByid(appl[i],function(err,result){
 			if(err) throw err;
 			else {
 				appl1.push(result);
+				if(j == appl.length - 1)
+				{
+					res.render('offers', {result:appl1});
+				}
+				j++;
 			}
-			});
+		});
 	}
-	res.render('applications',{result:appl1});
 });
 //Company Detail Page on Admin Placement Events
 router.post('/companyDetail2', function(req, res){
@@ -389,7 +425,7 @@ router.post('/companyDetail2', function(req, res){
 		else {
 			res.render('companyDetailsAdmin',{layout:'layoutb.handlebars',result:result});
 		}
-		});
+	});
 });
 
 //Company Detail Page on opportunity for all
@@ -424,21 +460,33 @@ router.post('/companyDetail', function(req, res){
 //to Apply on opportunity for all
 router.get('/apply/:compId',ensureAuthenticated,function(req,res){
 	var cid = req.params.compId;
-	//console.log(cid);
 	Company.getCompanyByid(cid,function(err,company){
 		if(err) throw err;
 		var currUser = req.user;
-		//console.log(company);
 		console.log(currUser);
-		Company.updateUsersForRegisteration(cid,currUser,function(err,result){
-			if(err) throw err;
-			console.log(result);
-		});
-		User.applyUserForCompany(currUser,cid,function(err,result){
-			if(err) throw err;
-			console.log(currUser);
-			res.redirect('/users/toapply');
-		});
+		var flag = 0;
+		var j = 0;
+		for(var i = 0; i < currUser.application.length; i++)
+		{
+			if(currUser.application[i] == cid)
+			{
+				flag = 1;
+				res.redirect('/users/dashboard');
+			}
+			if(flag == 0 && j == currUser.application.length - 1)
+			{
+				Company.updateUsersForRegisteration(cid,currUser,function(err,result){
+					if(err) throw err;
+					console.log(result);
+				});
+				User.applyUserForCompany(currUser,cid,function(err,result){
+					if(err) throw err;
+					console.log(currUser);
+					res.redirect('/users/toapply');
+				});
+			}
+			j++;
+		}
 	});
 });
 //----------Show Eligible Student List----------
@@ -447,18 +495,6 @@ router.get('/apply/:compId',ensureAuthenticated,function(req,res){
 router.get('/toapply',ensureAuthenticated, function(req, res){
 	console.log("On to apply offers Page");
 			res.render('toapply');
-});
-
-//applications
-router.get('/applications',ensureAuthenticated, function(req, res){
-	console.log("On Aplications page");
-	res.render('applications');
-});
-
-//offers page
-router.get('/offers',ensureAuthenticated, function(req, res){
-	console.log("On Job offers Page");
-	res.render('offers');
 });
 
 //Skills for all Profile
@@ -532,34 +568,78 @@ router.get('/createEvent',ensureAuthenticated, function(req, res){
 });
 
 //Edit Event display
-router.post('/createEvent', function(req, res){
-	console.log("On Create Event Page");
+router.post('/edit', function(req, res){
+	console.log("On Edit Event Page");
 	var companyid = req.body.id;
 	User.getUserByLevel('student',function(err, result){
 		if(err) throw err;
 		Company.getCompanyByid(companyid,function(err,result){
-			res.render('createEvent',{layout:'layoutb.handlebars',result:result});
+			res.render('editEvent', {layout: 'layoutb.handlebars', result: result, id: companyid});
 		});
 	});
 });
 
-// var storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, '/media/jiten/D61624941624779F/Project/Placement-Portal/companyfiles')
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, file.fieldname + '-' + Date.now())
-//   }
-// });
+router.post('/editEvent', function(req, res) {
+	console.log('On Event Edit submission route');
+	// var companyId = req.body.id;
+	// var companyName = req.body.cName;
+	// var position = req.body.position;
+	// var type = req.body.type;
+	// var package = req.body.package;
+	// var branch = req.body.branch;
+	// var percent_10 = req.body.percent_10;
+	// var percent_12 = req.body.percent_12;
+	// var percent_diploma = req.body.percent_diploma;
+	// var cpi = req.body.cpi;
+	// var backlogs = req.body.backlogs;
+	// var positionDetails = req.body.positiondetails;
+	// var schedule = req.body.schedule;
+	// var addDetails = req.body.additionaldetails;
 
-//var upload = multer({ storage: storage });
+	// var eligibleStudents = [];
+	// User.getAllUsersByOppurtunity(percent_10, percent_12, percent_diploma, cpi, backlogs, branch, function(err, eligible) {
+	// 	for (var i = 0; i < eligible.length; i++) {
+	// 		eligibleStudents.push(eligible[i]._id);
+	// 	}
 
+		Company.findByIdAndUpdate(req.body.id, {$set: {
+			name: req.body.cName,
+			position: req.body.position,
+			position_details: req.body.positionDetails,
+			type: req.body.type,
+			package: req.body.package,
+			criteria: {
+				percent_10: req.body.percent_10,
+				percent_12: req.body.percent_12,
+				percent_diploma: req.body.percent_diploma,
+				cpi: req.body.cpi,
+				backlogs: req.body.backlogs,
+				branch: req.body.branch
+			},
+			schedule: req.body.schedule,
+			additional_details: req.body.additionaldetails,
+			status: "open"
+			// eligible_students: eligibleStudents
+			}, function(err, edit_data) {
+				if(err) {
+					req.flash('error_msg','Error occured!');
+					res.redirect('/');
+				}
+				else {
+					req.flash('success_msg','Company edited succesfully!');
+					res.redirect('/users/companyattachments');
+				}
+			} 
+		});
+	// });
+});
 
 //Create Event Submit
 router.post('/submit_event',function(req,res){
 	var companyName = req.body.cName;
 	var position = req.body.position;
 	var type = req.body.type;
+	var package = req.body.package;
 	var branch = req.body.branch;
 	var percent_10 = req.body.percent_10;
 	if(percent_10 == "")
@@ -588,6 +668,7 @@ router.post('/submit_event',function(req,res){
 			position: position,
 			position_details: positionDetails,
 			type: type,
+			package: package,
 			criteria: {
 				percent_10: percent_10,
 				percent_12: percent_12,
@@ -692,14 +773,18 @@ router.post('/showeligible',function(req,res){
 	var companyId = req.body.id;
 	Company.getCompanyByid(companyId,function(err,company){
 		var students = [];
+		var j = 0;
 		for(var i = 0;i<company.eligible_students.length;i++)
 		{
 			User.getUserById(company.eligible_students[i],function(err,result){
 				students.push(result);
-				console.log(result);
+				if(j == company.eligible_students.length - 1) {
+					console.log(students);
+					res.render('showEligibleStudents',{layout:'layoutb.handlebars', result:students, companyid:companyId});
+				}
+				j++;
 			});
 		}
-		res.render('showEligibleStudents',{layout:'layoutb.handlebars', result:students, companyid:companyId});
 	});
 });
 
@@ -740,21 +825,6 @@ router.post('/setOffered',function(req,res){
 			console.log(result);
 		});
 	}
-
-	Company.getCompanyByid(companyId,function(err,company){
-		console.log(company,"Iske baad students print krega !!!");
-		for(var i = 0;i<company.offered.length;i++)
-		{
-			//console.log(company.offered[i]);
-			User.getUserByEmail( company.offered[i] ,function(err,student){
-				console.log(student,"Yha pr student Milega !");
-				students.push(student);
-			});
-		}
-
-	});
-	console.log(students.length);
-	res.render('showOfferedStudents',{layout:'layoutb.handlebars', result:students, companyid:companyId});
 });
 
 //Display students details

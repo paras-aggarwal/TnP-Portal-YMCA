@@ -13,8 +13,6 @@
                 <th>Courses</th>
                 <th>Eligibility</th>
                 <th>Registered</th>
-                <th>Approved</th>
-                <th>Shortlisted</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -32,11 +30,7 @@
                 </td>
                 <td>{{this.eligible_students.length}}</td>
                 <td>{{this.registered_students.length}}</td>
-                <td>{{this.offered.length}}</td>
-                <td>{{this.offered.length}}</td>
                 <td>
-
-                <!-- <form class="" action="/users/companyDetail2" method="post"> -->
                   <form class="" action="/users/companydetails" method="post">
                     <input type="hidden" name="compId" value="{{this.id}}">
                     <button type="submit" class="btn btn-primary btn-sm">View</button>

@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var CompanySchema = mongoose.Schema({
 	name: String,
 	position: String,
+	package: Number,
 	type: String,
 	criteria: {
 		percent_10:
