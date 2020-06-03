@@ -34,6 +34,7 @@ cd TnP-Portal-ymca
 
 ### How to deploy ?
 **Install nodemon if not install on your machine**
+
 Make sure your command line has admin priviledge
 
 **For Windows**
