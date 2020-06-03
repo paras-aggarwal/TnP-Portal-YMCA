@@ -464,17 +464,17 @@ router.get('/apply/:compId',ensureAuthenticated,function(req,res){
 		if(err) throw err;
 		var currUser = req.user;
 		console.log(currUser);
-		var flag = 0;
-		var j = 0;
-		for(var i = 0; i < currUser.application.length; i++)
-		{
-			if(currUser.application[i] == cid)
-			{
-				flag = 1;
-				res.redirect('/users/dashboard');
-			}
-			if(flag == 0 && j == currUser.application.length - 1)
-			{
+		//var flag = 0;
+		//var j = 0;
+		//for(var i = 0; i < currUser.application.length; i++)
+		//{
+			// if(currUser.application[i] == cid)
+			// {
+			// 	flag = 1;
+			// 	res.redirect('/users/dashboard');
+			// }
+			//if(flag == 0 && j == currUser.application.length - 1)
+			//{
 				Company.updateUsersForRegisteration(cid,currUser,function(err,result){
 					if(err) throw err;
 					console.log(result);
@@ -484,9 +484,9 @@ router.get('/apply/:compId',ensureAuthenticated,function(req,res){
 					console.log(currUser);
 					res.redirect('/users/toapply');
 				});
-			}
-			j++;
-		}
+			//}
+			//j++;
+		//}
 	});
 });
 //----------Show Eligible Student List----------
@@ -814,6 +814,7 @@ router.post('/setOffered',function(req,res){
 	var studentList = req.body.studentList;
 	var students = [];
 	console.log(studentList);
+	var j = 0;
 	for(var i = 0;i<studentList.length;i++)
 	{
 		Company.updateOfferedStudents(companyId,studentList[i],function(err,result){});
@@ -824,6 +825,10 @@ router.post('/setOffered',function(req,res){
 		User.UpdateStudentOffers(studentList[i],companyId,function(err,result){
 			console.log(result);
 		});
+		if(j == studentList.length - 1) {
+			res.redirect('/');
+		}
+		j++;
 	}
 });
 
