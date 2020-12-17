@@ -22,7 +22,7 @@
     "body-parser": "*",
     "connect-flash": "*",
     "cookie-parser": "*",
-    "datatables.net": "^1.10.19",
+    "datatables.net": "^1.10.22",
     "datatables.net-dt": "^1.10.19",
     "express": "*",
     "express-fileupload": "^0.3.0",
