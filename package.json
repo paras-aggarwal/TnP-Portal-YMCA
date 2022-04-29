@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/jitenss/Placement-Portal#readme",
   "dependencies": {
-    "async": "^2.6.0",
+    "async": "^2.6.4",
     "bcryptjs": "*",
     "body-parser": "*",
     "connect-flash": "*",
